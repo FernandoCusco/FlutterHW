@@ -8,8 +8,6 @@ void main() {
 class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
-
     return MaterialApp(
       title: 'Bienvenido',
       home: Scaffold(                                                     //widget 
@@ -17,9 +15,25 @@ class MyApp extends StatelessWidget{
           title: Text('Mi App'),
         ),        
         body: Center(
-          child: Text(wordPair.asPascalCase),
+          child: RandomWords(),
         ),
       ),
     );
   }
+}
+
+class RandomWords extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    return StateWidget();
+  }
+}
+
+class StateWidget extends State<RandomWords>{
+  @override
+  Widget build(BuildContext context) {
+    final wordPair = WordPair.random();
+    return Text(wordPair.asPascalCase);
+  }
+
 }
