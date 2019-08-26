@@ -10,14 +10,7 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Bienvenido',
-      home: Scaffold(                                                     //widget 
-        appBar: AppBar(                                                   //barra en la parte superior
-          title: Text('Mi App'),
-        ),        
-        body: Center(
-          child: RandomWords(),
-        ),
-      ),
+      home: RandomWords(),
     );
   }
 }
@@ -30,10 +23,30 @@ class RandomWords extends StatefulWidget{
 }
 
 class StateWidget extends State<RandomWords>{
+  final _sugeridas = <WordPair>[];
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
-    return Text(wordPair.asPascalCase);
+    return  Scaffold(                                                     //widget 
+        appBar: AppBar(                                                   //barra en la parte superior
+          title: Text('Mi App'),
+        ),                                                              
+        body: _listViewSugeridas(),
+      );                                                                
   }
 
+  Widget _listViewSugeridas(){
+    return ListView.builder(
+      itemBuilder: (context, i) {
+        if(i >= _sugeridas.length){
+          _sugeridas.addAll(generateWordPairs().take(10));
+        }
+        _buildRow(_sugeridas[i]);
+      },
+    );
+  }
+  Widget _buildRow(WordPair pair){
+    return ListTile(
+      title: Text(pair.asPascalCase),
+    );
+  }
 }
